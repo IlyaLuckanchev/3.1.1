@@ -2,10 +2,8 @@ package Practice311.SpringBoot311.userDaoImpl;
 
 import Practice311.SpringBoot311.repository.User;
 import Practice311.SpringBoot311.repository.UserRepository;
-import jakarta.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,11 +37,10 @@ public class UserDAOImpl implements UserDAO {
             throw new IllegalStateException("Пользователь с Id : " +id + "не найден");
         }
         User user = optionalUser.get();
-        if (name != null && surName != null) {
-            user.setName(name);
-            user.setSurName(surName);
-        }
+        user.setName(name);
+        user.setSurName(surName);
         userRepository.save(user);
+
     }
 
     @Override
@@ -57,6 +54,6 @@ public class UserDAOImpl implements UserDAO {
         if(optionalUser.isEmpty()){
             throw new IllegalStateException("Пользователь с Id : " +id + "не найден");
         }
-        return userRepository.getById(id);
+        return optionalUser.get();
     }
 }
