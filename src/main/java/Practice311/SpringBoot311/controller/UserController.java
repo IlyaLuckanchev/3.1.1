@@ -3,14 +3,16 @@ package Practice311.SpringBoot311.controller;
 import Practice311.SpringBoot311.repository.User;
 import Practice311.SpringBoot311.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-
-@RestController
+@Controller
+@RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
+
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
@@ -27,7 +29,6 @@ public class UserController {
     public String showAddForm(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("isFormMode", true);
-        model.addAttribute("formAction", "/user/add");
         return "user";
     }
 
@@ -39,9 +40,9 @@ public class UserController {
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
-        model.addAttribute("user", userService.getUserById(id));
+        User user = userService.getUserById(id);
+        model.addAttribute("user", user);
         model.addAttribute("isFormMode", true);
-        model.addAttribute("formAction", "/user/edit/" + id);
         return "user";
     }
 

@@ -19,13 +19,11 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    @Transactional
     public User addUser(User user) {
         return userRepository.save(user);
     }
 
     @Override
-    @Transactional
     public void deleteUser(Long id) {
         Optional<User> optionalUser = userRepository.findById(id);
         if(optionalUser.isEmpty()){
@@ -35,7 +33,6 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    @Transactional
     public void updateUser(String name, String surName, Long id) {
         Optional<User> optionalUser = userRepository.findById(id);
         if(optionalUser.isEmpty()){
@@ -50,13 +47,11 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    @Transactional
     public List<User> getUser() {
         return userRepository.findAll();
     }
 
     @Override
-    @Transactional
     public User getUserById(Long id) {
         Optional<User> optionalUser = userRepository.findById(id);
         if(optionalUser.isEmpty()){
